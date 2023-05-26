@@ -1,0 +1,108 @@
+<% layout('layouts/boilerplate')%>
+<div class="row">
+    <h1 class="text-left">Edit Stock</h1>
+    <div class="col6">
+        <form action="/stocks/<%= stock._id %>?_method=PATCH" method="POST" novalidate class="validated-form">
+            <div class="mb-2 col-md-4">
+                <label class="form-label" for="title">Title</label>
+                <input
+                    class="form-control"
+                    type="text"
+                    id="title"
+                    name="stock[title]"
+                    value="<%=stock.title%>"
+                    required
+                />
+                <div class="valid-feedback">
+                    Looks Good!
+                </div>
+            </div>
+            <div class="mb-2 col-md-4">
+                <label class="form-label" for="valuation">Valuation</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="valuation-label">&#8377</span>
+                    <input
+                        class="form-control"
+                        type="number"
+                        id="valuation"
+                        placeholder="0"
+                        aria-label="valuation"
+                        aria-describedby="valuation-label"
+                        name="stock[valuation]"
+                        value="<%=stock.valuation%>"
+                        required
+                    />
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-2 col-md-4">
+                <label class="form-label" for="price">Price</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="price-label">&#8377</span>
+                    <input
+                        class="form-control"
+                        type="number"
+                        id="price"
+                        placeholder="0"
+                        aria-label="price"
+                        aria-describedby="price-label"
+                        name="stock[price]"
+                        value="<%=stock.price%>"
+                        required
+                    />
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-2 col-md-4">
+                <label class="form-label" for="totalStocks">Total Stocks</label>
+                <input
+                    class="form-control"
+                    type="number"
+                    id="totalStocks"
+                    name="stock[totalStocks]"
+                    value="<%=stock.totalStocks%>"
+                    required
+                />
+                <div class="valid-feedback">
+                    Looks Good!
+                </div>
+            </div>
+            <div class="mb-2 col-md-4">
+                <label class="form-label" for="description">Description</label>
+                <textarea
+                    class="form-control"
+                    type="text"
+                    id="description"
+                    name="stock[description]"
+                    required
+                ><%=stock.description%></textarea>
+                <div class="valid-feedback">
+                    Looks Good!
+                </div>
+            </div>
+            <div class="mb-3 col-md-4">
+                <label class="form-label" for="image">Image URL</label>
+                <input
+                    class="form-control"
+                    type="text"
+                    id="image"
+                    name="stock[image]"
+                    value="<%=stock.image%>"
+                    required
+                />
+                <div class="valid-feedback">
+                    Looks Good!
+                </div>
+            </div>
+            <div class="mb-2 col-md-4">
+                <button class="btn btn-info text-light">Edit Stock</button>
+            </div>
+        </form>
+    </div>
+</div>

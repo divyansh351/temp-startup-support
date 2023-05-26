@@ -1,0 +1,103 @@
+<% layout('layouts/boilerplate')%>
+<div class="row">
+    <h1 class="text-left">New Stock Registration</h1>
+    <div class="col6">
+        <form action="/stocks" method="POST" class="validated-form" novalidate>
+            <div class="mb-2 col-md-4">
+                <label class="form-label" for="title">Title</label>
+                <input
+                    class="form-control"
+                    type="text"
+                    id="title"
+                    name="stock[title]"
+                    required
+                />
+                <div class="valid-feedback">
+                    Looks Good!
+                </div>
+            </div>
+            <div class="mb-2 col-md-4">
+                <label class="form-label" for="valuation">Valuation</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="valuation-label">&#8377</span>
+                    <input
+                        class="form-control"
+                        type="number"
+                        id="valuation"
+                        placeholder="0"
+                        aria-label="valuation"
+                        aria-describedby="valuation-label"
+                        name="stock[valuation]"
+                        required
+                    />
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-2 col-md-4">
+                <label class="form-label" for="price">Price</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="price-label">&#8377</span>
+                    <input
+                        class="form-control"
+                        type="number"
+                        id="price"
+                        placeholder="0"
+                        aria-label="price"
+                        aria-describedby="price-label"
+                        name="stock[price]"
+                        required
+                    />
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-2 col-md-4">
+                <label class="form-label" for="totalStocks">Total Stocks</label>
+                <input
+                    class="form-control"
+                    type="number"
+                    id="totalStocks"
+                    name="stock[totalStocks]"
+                    required
+                />
+                <div class="valid-feedback">
+                    Looks Good!
+                </div>
+            </div>
+            <div class="mb-2 col-md-4">
+                <label class="form-label" for="description">Description</label>
+                <textarea
+                    class="form-control"
+                    type="text"
+                    id="description"
+                    name="stock[description]"
+                    required
+                ></textarea>
+                <div class="valid-feedback">
+                    Looks Good!
+                </div>
+            </div>
+            <div class="mb-2 col-md-4">
+                <label class="form-label" for="image">Image URL</label>
+                <input
+                    class="form-control"
+                    type="text"
+                    id="image"
+                    name="stock[image]"
+                    required
+                />
+                <div class="valid-feedback">
+                    Looks Good!
+                </div>
+            </div>
+            <div class="mb-2 col-md-4">
+                <button class="btn btn-success">Add Stock</button>
+            </div>
+        </form>
+    </div>
+</div>

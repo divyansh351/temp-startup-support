@@ -1,0 +1,26 @@
+<% layout('layouts/boilerplate')%>
+<h1>All Stocks</h1>
+
+<% for (let stock of stocks) {%>
+<div class="card mb-3">
+    <div class="row">
+        <div class="col-md-4">
+            <img class="img-fluid" alt="" src="<%=stock.image%>" />
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title"><%=stock.title%></h5>
+                <p class="card-text"><%=stock.description%></p>
+                <p class="card-text">
+                    <b>
+                        <large class="text-dark">&#8377 <%=stock.price%> </large>
+                    </b>
+                </p>
+                <a href="/stocks/<%=stock._id%>" class="btn btn-primary">
+                    View
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<% } %>

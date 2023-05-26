@@ -1,0 +1,144 @@
+<% layout('layouts/boilerplate')%>
+
+<div class="row">
+    <div class="col-8">
+        <div class="card mb-3 w-100" style="width: 100">
+            <div class="row g-0">
+                <div class="col-md-7">
+                    <img
+                        src="<%=stock.image %>"
+                        class="card-img-top"
+                        alt="<%=stock.title %>"
+                    />
+                </div>
+                <div class="col-md-5 d-flex flex-column vh-50">
+                    <div class="card-body">
+                        <h5 class="card-title"><%=stock.title%></h5>
+                        <p class="card-text"><%= stock.description %></p>
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><%=stock.price%></li>
+                            <li class="list-group-item">
+                                <%=stock.valuation%>
+                            </li>
+                            <li class="list-group-item">
+                                <%=stock.totalStocks%>
+                            </li>
+                            <li class="list-group-item">
+                                <div>
+                                    <a
+                                        href="/stocks/<%=stock._id%>/edit"
+                                        class="card-link btn btn-warning"
+                                    >
+                                        Edit
+                                    </a>
+                                    <form
+                                        action="/stocks/<%=stock._id%>?_method=DELETE"
+                                        method="POST"
+                                        class="d-inline"
+                                    >
+                                        <button class="btn btn-danger">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer mt-auto">
+                        <p class="card-text card-body">
+                            <small class="text-body-secondary"
+                                >Buy within 30 days</small
+                            >
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2>Buy this Stock</h2>
+        <form action="/stocks/<%=stock._id%>/buyOrders" method="POST" class="mb-3">
+            <div class="mb-3">
+                <label for="quantity">Quantity</label>
+                <input
+                    class="form-range"
+                    type="range"
+                    min="1"
+                    max="<%= stock.totalStocks %>"
+                    name="buyOrder[quantity]"
+                    id="quantity"
+                />
+            </div>
+            <div class="mb-3">
+                <label class="form-labels" for="price"> Price </label>
+
+                <div class="input-group">
+                    <span class="input-group-text" id="price-label">&#8377</span>
+                    <input
+                        class="form-control"
+                        type="number"
+                        id="price"
+                        placeholder="0"
+                        aria-label="price"
+                        aria-describedby="price-label"
+                        name="buyOrder[price]"
+                        value="<%= stock.price %>"
+                        readonly
+                    />
+                </div>
+
+            </div>
+            <div class="mb-3">
+                Total Price: &#8377 <%= stock.price %>
+            </div>
+            <%if(stock.totalStocks==0){%>
+                <button class="btn btn-success" disabled aria-label="Close">Sold Out</button>
+            <%} else{%>
+                <button class="btn btn-success">Buy</button>
+            <%}%>
+
+        </form>
+    </div>
+    
+    <div class="col-4">
+        <h2>Leave a review</h2>
+        <form action="/stocks/<%=stock._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate>
+            <div class="mb-3">
+                <label for="rating">Rating</label>
+                <input
+                    class="form-range"
+                    type="range"
+                    min="1"
+                    max="5"
+                    name="review[rating]"
+                    id="rating"
+                />
+            </div>
+            <div class="mb-3">
+                <label class="form-labels" for="body"> Review </label>
+                <textarea
+                    class="form-control"
+                    name="review[body]"
+                    id="body"
+                    cols="40"
+                    rows="3"
+                    required
+                ></textarea>
+                <div class="valid-feedback">
+                    Looks Good!
+                </div>
+            </div>
+            <button class="btn btn-success">Submit</button>
+        </form>
+        <% for(let review of stock.reviews){ %>
+            <div class="mb-3 card">
+                <div class="card-body">
+                    <h5 class="card-title">Rating: <%=review.rating%></h5>
+                    <p class="card-text">Review: <%=review.body%></p>
+                    <form action="/stocks/<%= stock._id %>/reviews/<%=review._id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</div>
