@@ -2,21 +2,11 @@ const express = require('express');
 const catchAsync = require('../utils/catchAsync')
 const ExpressError = require('../utils/ExpressError')
 const Stock = require('../models/stock')
-const { stockSchema } = require('../schemas')
+const { isLoggedIn, validateStock, isOwner } = require('../middleware')
 
 const router = express.Router();
 
-// the stock validation finction, required when listing new stock
-const validateStock = (req, res, next) => {
-    const { error } = stockSchema.validate(req.body);
-    if (error) {
-        const message = error.details.map(el => el.message).join(', ')
-        throw new ExpressError(message, 400)
-    }
-    else {
-        next()
-    }
-}
+
 
 // the stock show route
 router.get('/', catchAsync(async (req, res) => {
@@ -26,13 +16,13 @@ router.get('/', catchAsync(async (req, res) => {
 
 
 // new stock form route
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn, (req, res) => {
     res.render('./stocks/new')
 })
 
 
 // new stock form submission
-router.post('/', validateStock, catchAsync(async (req, res) => {
+router.post('/', isLoggedIn, validateStock, catchAsync(async (req, res) => {
     // if (!req.body.stock) throw new ExpressError('Invalid Stock Data', 400);
     const title = req.body.stock.title;
     const valuation = parseInt(req.body.stock.valuation);
@@ -48,6 +38,7 @@ router.post('/', validateStock, catchAsync(async (req, res) => {
         description: description,
         image: image
     })
+    stock.owner = req.user._id
     await stock.save();
     req.flash('success', 'Successfully registered new stock!')
     res.redirect(`/stocks/${stock._id}`)
@@ -56,7 +47,8 @@ router.post('/', validateStock, catchAsync(async (req, res) => {
 
 // the stock show page
 router.get('/:id', catchAsync(async (req, res) => {
-    const stock = await Stock.findById(req.params.id).populate('reviews');
+    const stock = await Stock.findById(req.params.id).populate('reviews').populate('owner');
+    console.log(stock)
     if (!stock) {
         req.flash('error', 'Cannot find that stock')
         return res.redirect('/stocks')
@@ -65,7 +57,8 @@ router.get('/:id', catchAsync(async (req, res) => {
 }))
 
 // the stock edit form
-router.get('/:id/edit', catchAsync(async (req, res) => {
+router.get('/:id/edit', isLoggedIn, isOwner, catchAsync(async (req, res) => {
+    const { id } = req.params;
     const stock = await Stock.findById(req.params.id)
     if (!stock) {
         req.flash('error', 'Cannot find that stock to edit')
@@ -76,7 +69,7 @@ router.get('/:id/edit', catchAsync(async (req, res) => {
 
 
 // the stock edit patch route
-router.patch('/:id', validateStock, catchAsync(async (req, res) => {
+router.patch('/:id', isLoggedIn, isOwner, validateStock, catchAsync(async (req, res) => {
     const { id } = req.params;
     const title = req.body.stock.title;
     const valuation = parseInt(req.body.stock.valuation);
@@ -84,6 +77,8 @@ router.patch('/:id', validateStock, catchAsync(async (req, res) => {
     const totalStocks = parseInt(req.body.stock.totalStocks);
     const description = req.body.stock.description;
     const image = req.body.stock.image;
+
+    ///
     const stock = await Stock.findOneAndUpdate({ _id: id }, {
         title: title,
         price: price,
@@ -98,7 +93,7 @@ router.patch('/:id', validateStock, catchAsync(async (req, res) => {
 
 
 // the stock delete route
-router.delete('/:id', catchAsync(async (req, res) => {
+router.delete('/:id', isLoggedIn, isOwner, catchAsync(async (req, res) => {
     const { id } = req.params;
     await Stock.findByIdAndDelete(id);
     req.flash('success', 'Successfully deleted')
