@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Review = require('./review')
 const Schema = mongoose.Schema;
-
+const User = require('./user')
 
 const StockSchema = new Schema({
     title: String,
@@ -10,6 +10,10 @@ const StockSchema = new Schema({
     totalStocks: Number,
     description: String,
     image: String,
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     reviews: [
         {
             type: Schema.Types.ObjectId,
