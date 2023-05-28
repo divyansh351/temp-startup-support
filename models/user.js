@@ -7,7 +7,19 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         unique: true
-    }
+    },
+    stocks: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Stock'
+        }
+    ],
+    buyOrders: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'BuyOrder'
+        }
+    ]
 })
 
 UserSchema.plugin(passportLocalMongoose);

@@ -3,7 +3,7 @@ const User = require('../models/user')
 const router = express.Router()
 const catchAsync = require('../utils/catchAsync')
 const passport = require('passport')
-const { storeReturnTo } = require('../middleware')
+const { storeReturnTo, isLoggedIn } = require('../middleware')
 
 router.get('/register', (req, res) => {
     res.render('users/register')
@@ -43,6 +43,12 @@ router.get('/logout', (req, res) => {
         req.flash('success', 'Logged out Successfully!');
         res.redirect('/stocks');
     });
+})
+
+router.get('/profile', isLoggedIn, async (req, res) => {
+    const user = await User.findById(req.user._id).populate('stocks').populate('buyOrders')
+    // console.log(user);
+    res.render('users/show', { user })
 })
 
 module.exports = router;

@@ -1,0 +1,180 @@
+<% layout('layouts/boilerplate')%>
+
+<div class="row">
+    <div class="col-15 offset-0">
+        <div class="card mb-3 w-100" style="width: 100">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img
+                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                        class="card-img-top"
+                        alt="<%=currentUser.username %>"
+                    />
+                </div>
+                <div class="col-md-8 d-flex flex-column vh-50">
+                    <div class="card-body">
+                        <h2 class="card-title">
+                            Hi, <%=currentUser.username%>
+                        </h2>
+
+                        <p class="card-text mb-3"><%=currentUser.email %></p>
+                        <br />
+                        <h2 class="">Your Portfolio</h2>
+                        <div class="row">
+                            <div class="col-md-3 d-flex flex-column">
+                                <h4 class="">Stocks</h4>
+                                <ul class="">
+                                    <% for(let stock of user.stocks){ %>
+                                    <li><%=stock.title %></li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                            <div class="col-md-3 d-flex flex-column vh-50">
+                                <h4 class="">Quantity</h4>
+                                <ul class="">
+                                    <% for(let buyOrder of user.buyOrders){ %>
+                                    <li><%=buyOrder.quantity %></li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                            <div class="col-md-5 d-flex flex-column vh-50 mb-5">
+                                <h4 class="">Price</h4>
+                                <ul class="">
+                                    <% for(let buyOrder of user.buyOrders){ %>
+                                    <li><%=buyOrder.price %></li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 align="center" class="mb-4">Portfolio Charts</h1>
+    <div class="row g-0">
+        <div class="col-md-4 d-flex flex-column vh-50 mb-5">
+            <h3 align="center">Share by value</h3>
+            <canvas id="myChart" height="50%" width="50%"></canvas>
+        </div>
+        <div class="col-md-4 d-flex flex-column vh-50 mb-5">
+            <h3 align="center">Share by quantity</h3>
+            <canvas id="myChart2" height="50%" width="50%"></canvas>
+        </div>
+        <div class="col-md-4 d-flex flex-column vh-50 mb-5">
+            <h3 align="center">Share by price</h3>
+            <canvas id="myChart3" height="50%" width="50%"></canvas>
+        </div>
+    </div>
+
+    <%var stocks = JSON.stringify(user.stocks, ['title']) %>
+    <br />
+    <%var dets=JSON.stringify(user.buyOrders, ['price', 'quantity']) %>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById("myChart");
+    const ctx2 = document.getElementById("myChart2");
+    const ctx3 = document.getElementById("myChart3");
+    var getStocks = <%-stocks%>;
+    var getDets = <%-dets%>;
+    // console.log(getStocks)
+    // console.log(getDets)
+    sto = [];
+    for (let stoc of getStocks) {
+        sto.push(stoc.title);
+    }
+
+    quants=[];
+    for(let det of getDets){
+        quants.push(det.quantity);
+    }
+
+    prics=[];
+    for(let det of getDets){
+        prics.push(det.price)
+    }
+
+    values=[];
+    for(let det of getDets){
+        values.push(det.quantity*det.price)
+    }
+    console.log(values)
+    console.log(sto);
+    // console.log(stoc);
+    new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: sto,
+            datasets: [
+                {
+                    label: "Value",
+                    data: values,
+                    borderWidth: 2,
+                },
+            ],
+        },
+        options: {
+            scales: {
+
+            },
+        },
+    });
+
+    new Chart(ctx2, {
+        type: "bar",
+        data: {
+            labels: sto,
+            datasets: [
+                {
+                    label: "Quantity",
+                    data: quants,
+                    borderWidth: 2,
+
+                backgroundColor: [
+      'rgba(255, 99, 132, 0.2)',
+      'rgba(255, 205, 86, 0.2)',
+      'rgba(153, 102, 255, 0.2)',
+      'rgba(75, 192, 192, 0.2)',
+      'rgba(54, 162, 235, 0.2)',
+      'rgba(201, 203, 207, 0.2)',
+      'rgba(255, 159, 64, 0.2)'
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',
+      'rgb(255, 205, 86)',
+      'rgb(153, 102, 255)',
+      'rgb(75, 192, 192)',
+      'rgb(54, 162, 235)',
+      'rgb(201, 203, 207)',
+      'rgb(255, 159, 64)'
+    ]},
+            ],
+        },
+
+        options: {
+            scales: {
+
+            },
+        },
+    });
+
+    new Chart(ctx3, {
+        type: "pie",
+        data: {
+            labels: sto,
+            datasets: [
+                {
+                    label: "Price",
+                    data: prics,
+                    borderWidth: 2,
+                },
+            ],
+        },
+        options: {
+            scales: {
+
+            },
+        },
+    });
+</script>
