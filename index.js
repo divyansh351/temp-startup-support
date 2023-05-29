@@ -106,7 +106,7 @@ app.engine('ejs', ejsMate)
 
 // the home route
 app.get('/', (req, res) => {
-    res.render('home');
+    res.render('home', { currentUser: res.locals.user });
 })
 
 // router stuff moved to specific routes
