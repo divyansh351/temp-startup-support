@@ -1,4 +1,5 @@
 // importing modules
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -68,15 +69,10 @@ passport.deserializeUser(User.deserializeUser())
 
 app.use((req, res, next) => {
     // console.log(req.session)
-    try {
-        res.locals.currentUser = req.user;
-        res.locals.success = req.flash('success');
-        res.locals.error = req.flash('error');
-        next();
-    }
-    catch (e) {
-        next(e);
-    }
+    res.locals.currentUser = req.user;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    
 })
 
 //
@@ -106,8 +102,8 @@ app.engine('ejs', ejsMate)
 
 
 // the home route
-app.get('/', (req, res) => {
-    res.render('home', { currentUser: req.user });
+app.get('/', isLoggedIn, (req, res) => {
+    res.render('home');
 })
 
 // router stuff moved to specific routes
