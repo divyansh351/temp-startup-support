@@ -1,4 +1,5 @@
 // importing modules
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -11,6 +12,8 @@ const flash = require('connect-flash')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const User = require('./models/user')
+const MongoStore = require('connect-mongo');
+
 
 // router settings
 const stockRoutes = require('./routes/stocks');
@@ -18,19 +21,32 @@ const reviewRoutes = require('./routes/reviews');
 const buyOrderRoutes = require('./routes/buyOrders');
 const userRoutes = require('./routes/users');
 
+
+//
+const app = express();
+// const PORT = process.env.PORT || 3000;
+const dbUrl = process.env.DB_URL;
+// 
+// 'mongodb://127.0.0.1:27017/startup-support'
 // connecting database
-mongoose.connect('mongodb://127.0.0.1:27017/startup-support')
+mongoose.connect(dbUrl)
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
     console.log("connection open!!!!")
 })
 
-//
-const app = express();
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: 'thisissecret'
+    }
+});
 
 // session 
 const sessionConfig = {
+    store,
     secret: 'thisissecret',
     resave: false,
     saveUninitialized: true,
