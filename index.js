@@ -20,14 +20,16 @@ const stockRoutes = require('./routes/stocks');
 const reviewRoutes = require('./routes/reviews');
 const buyOrderRoutes = require('./routes/buyOrders');
 const userRoutes = require('./routes/users');
+const { isLoggedIn } = require('./middleware');
 
 
 //
 const app = express();
-// const PORT = process.env.PORT || 3000;
-const dbUrl = process.env.DB_URL;
+const PORT = process.env.PORT || 3000;
+const dbUrl = 'mongodb://127.0.0.1:27017/startup-support'
+// process.env.DB_URL;
 // 
-// 'mongodb://127.0.0.1:27017/startup-support'
+
 // connecting database
 mongoose.connect(dbUrl)
 const db = mongoose.connection;
@@ -68,11 +70,12 @@ passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
 app.use((req, res, next) => {
-    // console.log(req.session)
+
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
-    
+    next();
+
 })
 
 //
