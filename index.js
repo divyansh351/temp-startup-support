@@ -26,8 +26,7 @@ const { isLoggedIn } = require('./middleware');
 //
 const app = express();
 const PORT = process.env.PORT || 3000;
-const dbUrl = 'mongodb://127.0.0.1:27017/startup-support'
-// process.env.DB_URL;
+const dbUrl = process.env.DB_URL;
 // 
 
 // connecting database
