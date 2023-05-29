@@ -78,103 +78,96 @@
     const ctx3 = document.getElementById("myChart3");
     var getStocks = <%-stocks%>;
     var getDets = <%-dets%>;
-    // console.log(getStocks)
-    // console.log(getDets)
     sto = [];
     for (let stoc of getStocks) {
-        sto.push(stoc.title);
+      sto.push(stoc.title);
     }
 
-    quants=[];
-    for(let det of getDets){
-        quants.push(det.quantity);
+    quants = [];
+    for (let det of getDets) {
+      quants.push(det.quantity);
     }
 
-    prics=[];
-    for(let det of getDets){
-        prics.push(det.price)
+    prics = [];
+    for (let det of getDets) {
+      prics.push(det.price)
     }
 
-    values=[];
-    for(let det of getDets){
-        values.push(det.quantity*det.price)
+    values = [];
+    for (let det of getDets) {
+      values.push(det.quantity * det.price)
     }
     console.log(values)
     console.log(sto);
     // console.log(stoc);
     new Chart(ctx, {
-        type: "doughnut",
-        data: {
-            labels: sto,
-            datasets: [
-                {
-                    label: "Value",
-                    data: values,
-                    borderWidth: 2,
-                },
-            ],
-        },
-        options: {
-            scales: {
+      type: "doughnut",
+      data: {
+        labels: sto,
+        datasets: [{
+          label: "Value",
+          data: values,
+          borderWidth: 2,
+        }, ],
+      },
+      options: {
+        scales: {
 
-            },
         },
+      },
     });
 
     new Chart(ctx2, {
-        type: "bar",
-        data: {
-            labels: sto,
-            datasets: [
-                {
-                    label: "Quantity",
-                    data: quants,
-                    borderWidth: 2,
+      type: "bar",
+      data: {
+        labels: sto,
+        datasets: [{
+          label: "Quantity",
+          data: quants,
+          borderWidth: 2,
 
-                backgroundColor: [
-      'rgba(255, 99, 132, 0.2)',
-      'rgba(255, 205, 86, 0.2)',
-      'rgba(153, 102, 255, 0.2)',
-      'rgba(75, 192, 192, 0.2)',
-      'rgba(54, 162, 235, 0.2)',
-      'rgba(201, 203, 207, 0.2)',
-      'rgba(255, 159, 64, 0.2)'
-    ],
-    borderColor: [
-      'rgb(255, 99, 132)',
-      'rgb(255, 205, 86)',
-      'rgb(153, 102, 255)',
-      'rgb(75, 192, 192)',
-      'rgb(54, 162, 235)',
-      'rgb(201, 203, 207)',
-      'rgb(255, 159, 64)'
-    ]},
-            ],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(201, 203, 207, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 205, 86)',
+            'rgb(153, 102, 255)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+            'rgb(201, 203, 207)',
+            'rgb(255, 159, 64)'
+          ]
+        }, ],
+      },
+
+      options: {
+        scales: {
+
         },
-
-        options: {
-            scales: {
-
-            },
-        },
+      },
     });
 
     new Chart(ctx3, {
-        type: "pie",
-        data: {
-            labels: sto,
-            datasets: [
-                {
-                    label: "Price",
-                    data: prics,
-                    borderWidth: 2,
-                },
-            ],
-        },
-        options: {
-            scales: {
+      type: "pie",
+      data: {
+        labels: sto,
+        datasets: [{
+          label: "Price",
+          data: prics,
+          borderWidth: 2,
+        }, ],
+      },
+      options: {
+        scales: {
 
-            },
         },
+      },
     });
 </script>

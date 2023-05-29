@@ -19,7 +19,6 @@ router.post('/', isLoggedIn, validateBuyOrder, catchAsync(async (req, res) => {
     const newQuantity = initialQuantity - buyQuantity;
     buyOrder.buyer = req.user._id
     const user = await User.findById(req.user._id)
-    console.log(user)
     user.buyOrders.push(buyOrder)
     user.stocks.push(req.params.id)
     await Stock.updateOne({ _id: req.params.id }, { totalStocks: newQuantity }, { new: true })

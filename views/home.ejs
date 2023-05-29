@@ -1,2 +1,35 @@
 <% layout('layouts/boilerplate')%>
-<h1>Startup Support</h1>
+<h1 class="mb-3">Startup Support</h1>
+<div class="container">
+    <% if(!currentUser){ %>
+    <form action="/login">
+        <button class="btn btn-success btn-lg mb-2" action="submit">
+            Login
+        </button>
+    </form>
+    <form action="/register">
+        <button class="btn btn-success btn-lg mb-4" action="submit">
+            Register
+        </button>
+    </form>
+    <% }else{ %>
+    <form action="/logout">
+        <button class="btn btn-danger btn-lg mb-4" action="submit">
+            Logout
+        </button>
+    </form>
+    <% } %>
+    <form action="/stocks">
+        <button class="btn btn-primary btn-lg mb-5" action="submit">
+            View Stocks
+        </button>
+    </form>
+</div>
+<div class="mt-auto footer container">
+    <h3>Project made by:</h3>
+    <ul>
+        <li><a href="https://github.com/divyansh351">Divyansh Gupta</a></li>
+        <li><a href="https://github.com/rajshukla9797">Raj Shukla</a></li>
+        <li><a href="https://github.com/2003sakshamsingh">Saksham Singh</a></li>
+    </ul>
+</div>

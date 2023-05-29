@@ -104,11 +104,11 @@ app.all('*', (req, res, next) => {
 })
 
 // the all error route
-// app.use((err, req, res, next) => {
-//     const { statusCode = 500 } = err
-//     if (!err.message) err.message = 'Something Went Wrong';
-//     res.status(statusCode).render('error', { err })
-// })
+app.use((err, req, res, next) => {
+    const { statusCode = 500 } = err
+    if (!err.message) err.message = 'Something Went Wrong';
+    res.status(statusCode).render('error', { err })
+})
 
 // app start function
 app.listen(3000, () => {
