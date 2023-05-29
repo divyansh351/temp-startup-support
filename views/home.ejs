@@ -2,7 +2,7 @@
 
 <div class="container home-container1 mb-5">
     <h1 class="mb-3"><b>Startup Support</b></h1>
-    <% if(!currentUser){ %>
+    <% if(typeof(currentUser)=="undefined"){ %>
     <form action="/login">
         <button class="btn btn-success btn-lg mb-2" action="submit">
             <b>Login </b>

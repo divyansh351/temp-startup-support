@@ -20,7 +20,7 @@
                 <!-- <a class="nav-link disabled">Disabled</a> -->
             </div>
             <div class="navbar-nav ms-auto">
-                <% if(!currentUser) {%>
+                <% if(typeof(currentUser)=="undefined") {%>
                 <a class="nav-link" href="/login">Login</a>
                 <a class="nav-link" href="/register">Register</a>
                 <% }else{ %>

@@ -48,6 +48,7 @@ router.post('/', isLoggedIn, validateStock, catchAsync(async (req, res) => {
 // the stock show page
 router.get('/:id', catchAsync(async (req, res) => {
     const stock = await Stock.findById(req.params.id).populate('reviews').populate('owner');
+    console.log(stock)
     if (!stock) {
         req.flash('error', 'Cannot find that stock')
         return res.redirect('/stocks')

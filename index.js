@@ -1,5 +1,4 @@
 // importing modules
-require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -14,6 +13,9 @@ const LocalStrategy = require('passport-local')
 const User = require('./models/user')
 const MongoStore = require('connect-mongo');
 
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
 
 // router settings
 const stockRoutes = require('./routes/stocks');
@@ -22,14 +24,10 @@ const buyOrderRoutes = require('./routes/buyOrders');
 const userRoutes = require('./routes/users');
 const { isLoggedIn } = require('./middleware');
 
-
-//
-const app = express();
-const PORT = process.env.PORT || 3000;
-const dbUrl = process.env.DB_URL;
-// 
-
 // connecting database
+const dbUrl = process.env.DB_URL;
+const port = process.env.PORT || 3000;
+
 mongoose.connect(dbUrl)
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -37,18 +35,21 @@ db.once('open', function () {
     console.log("connection open!!!!")
 })
 
+const secret = process.env.SECRET
+//
+const app = express();
+
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
-    crypto: {
-        secret: 'thisissecret'
-    }
+    secret: secret
+
 });
 
 // session 
 const sessionConfig = {
     store,
-    secret: 'thisissecret',
+    secret: secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -69,12 +70,11 @@ passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
 app.use((req, res, next) => {
-
+    // console.log(req.session)
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
-
 })
 
 //
@@ -104,7 +104,7 @@ app.engine('ejs', ejsMate)
 
 
 // the home route
-app.get('/', isLoggedIn, (req, res) => {
+app.get('/', (req, res) => {
     res.render('home');
 })
 
@@ -129,6 +129,6 @@ app.use((err, req, res, next) => {
 })
 
 // app start function
-app.listen(3000, () => {
-    console.log("Serving on port 3000")
+app.listen(port, () => {
+    console.log(`Serving on port ${port}`)
 })
