@@ -8,14 +8,13 @@ body {
     background-color: white;
     border-radius: 10px;
     padding: 15px 25px;
-    width: 40%;
-    max-width: 960px;
+    margin: auto;
+    width: 100%;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
     text-align: center;
     text-transform: uppercase;
-    margin-left: 30%;
-    margin-right: 30%;
     border-color: black;
 }
 
@@ -24,15 +23,14 @@ body {
     border-radius: 10px;
     border-width: 1px;
     padding: 15px 25px;
-    width: 30%;
-    max-width: 960px;
+    width: 100%;
+    max-width: 400px;
     display: flex;
     flex-direction: column;
     text-align: center;
     text-transform: uppercase;
-    margin-left: 35%;
-    margin-right: 35%;
     border-color: black;
+    margin:auto;
 }
 
 
