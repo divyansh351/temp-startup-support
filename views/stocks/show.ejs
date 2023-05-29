@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-md-5 d-flex flex-column vh-50">
                     <div class="card-body">
-                        <h5 class="card-title"><%=stock.title%></h5>
+                        <h2 class="card-title"><b><%=stock.title%></b></h2>
                         <p class="card-text"><%= stock.description %></p>
 
                         <ul class="list-group list-group-flush">
@@ -61,10 +61,12 @@
             </div>
         </div>
         <% if(currentUser) { %>
-        <h2>Buy this Stock</h2>
+        <h2><b>Buy this Stock</b> </h2>
         <form action="/stocks/<%=stock._id%>/buyOrders" method="POST" class="mb-3">
             <div class="mb-3">
-                <label for="quantity">Quantity</label>
+                <label for="quantity"><b>
+                    Quantity
+                </b></label>
                 <input
                     class="form-range"
                     type="range"
@@ -75,7 +77,7 @@
                 />
             </div>
             <div class="mb-3">
-                <label class="form-labels" for="price"> Price </label>
+                <label class="form-labels" for="price"><b>Price </b> </label>
 
                 <div class="input-group">
                     <span class="input-group-text" id="price-label">&#8377</span>
@@ -93,9 +95,6 @@
                 </div>
 
             </div>
-            <div class="mb-3">
-                Total Price: &#8377 <%= stock.price %>
-            </div>
             <%if(stock.totalStocks==0){%>
                 <button class="btn btn-success" disabled aria-label="Close">Sold Out</button>
             <%} else{%>
@@ -108,7 +107,7 @@
     
     <div class="col-4">
         <% if(currentUser) { %>
-        <h2>Leave a review</h2>
+        <h2><b> Leave a review</b></h2>
         <form action="/stocks/<%=stock._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate>
             <div class="mb-3">
                 <label for="rating">Rating</label>
@@ -138,7 +137,7 @@
             <button class="btn btn-success">Submit</button>
         </form>
         <% } %>
-        <h3>Reviews</h3>
+        <h3><b> Reviews</b></h3>
         <% for(let review of stock.reviews){ %>
             <div class="mb-3 card">
                 <div class="card-body">

@@ -1,5 +1,5 @@
 <% layout('layouts/boilerplate')%>
-<h1>All Stocks</h1>
+<h1><b>All Stocks</b> </h1>
 
 <% for (let stock of stocks) {%>
 <div class="card mb-3">
@@ -9,7 +9,7 @@
         </div>
         <div class="col-md-8">
             <div class="card-body">
-                <h5 class="card-title"><%=stock.title%></h5>
+                <h3 class="card-title"><b><%=stock.title%></b></h3>
                 <p class="card-text"><%=stock.description%></p>
                 <p class="card-text">
                     <b>

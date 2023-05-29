@@ -1,35 +1,35 @@
 <% layout('layouts/boilerplate')%>
-<h1 class="mb-3">Startup Support</h1>
-<div class="container">
+
+<div class="container home-container1 mb-5">
+    <h1 class="mb-3"><b>Startup Support</b></h1>
     <% if(!currentUser){ %>
     <form action="/login">
         <button class="btn btn-success btn-lg mb-2" action="submit">
-            Login
+            <b>Login </b>
         </button>
     </form>
     <form action="/register">
         <button class="btn btn-success btn-lg mb-4" action="submit">
-            Register
+            <b> Register</b>
         </button>
     </form>
     <% }else{ %>
     <form action="/logout">
         <button class="btn btn-danger btn-lg mb-4" action="submit">
-            Logout
+            <b>Logout</b>
         </button>
     </form>
     <% } %>
     <form action="/stocks">
-        <button class="btn btn-primary btn-lg mb-5" action="submit">
-            View Stocks
+        <button class="btn btn-primary btn-lg mb-2" action="submit">
+            <b> View Stocks</b>
         </button>
     </form>
 </div>
-<div class="mt-auto footer container">
-    <h3>Project made by:</h3>
-    <ul>
-        <li><a href="https://github.com/divyansh351">Divyansh Gupta</a></li>
-        <li><a href="https://github.com/rajshukla9797">Raj Shukla</a></li>
-        <li><a href="https://github.com/2003sakshamsingh">Saksham Singh</a></li>
-    </ul>
+<div class="mt-auto footer home-container2">
+    <h4><b> Project made by:</b></h4>
+
+    <a href="https://github.com/divyansh351">Divyansh Gupta</a>
+    <a href="https://github.com/rajshukla9797">Raj Shukla</a>
+    <a href="https://github.com/2003sakshamsingh">Saksham Singh</a>
 </div>

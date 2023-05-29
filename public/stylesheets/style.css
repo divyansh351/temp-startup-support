@@ -1,0 +1,85 @@
+body {
+    background-color: #f4e4fe;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+}
+
+.home-container1 {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px 25px;
+    width: 40%;
+    max-width: 960px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    text-transform: uppercase;
+    margin-left: 30%;
+    margin-right: 30%;
+    border-color: black;
+}
+
+.home-container2 {
+    background-color: white;
+    border-radius: 10px;
+    border-width: 1px;
+    padding: 15px 25px;
+    width: 30%;
+    max-width: 960px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    text-transform: uppercase;
+    margin-left: 35%;
+    margin-right: 35%;
+    border-color: black;
+}
+
+
+.btn:hover {
+    box-shadow: 0 0.5em 0.5em -0.4em #ffffff82;
+    transform: translateY(-0.05em);
+    cursor: pointer;
+}
+
+.strips {
+    background-color: #8c09ff;
+}
+
+.nav-link {
+    color: white;
+}
+
+.navbar-brand {
+    color: white;
+}
+
+.btn-success{
+    background-color: #8c09ff;
+    border-color:#8c09ff;
+    border-radius: 0.8em;
+}
+.btn-success:hover{
+    background-color: #8c09ff;
+    border-color:#8c09ff;
+}
+
+
+.btn-primary{
+    background-color: #0077ff;
+    border-radius: 0.8em;
+}
+.btn{
+    border-radius:0.8em
+}
+.card{
+    border-radius: 1em;
+    background-color: #edd1ff;
+}
+img{
+    border-radius: 1em;
+}
+
+.list-group{
+    border-radius:1em;
+}
