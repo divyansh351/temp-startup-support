@@ -73,6 +73,7 @@ body {
 .card{
     border-radius: 1em;
     background-color: #edd1ff;
+    overflow: hidden;
 }
 img{
     border-radius: 1em;
