@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate')%>
 
 <div class="row">
-    <div class="col-8">
+    <div class="col-8 d-flex flex-column">
         <div class="card mb-3 w-100" style="width: 100">
             <div class="row g-0">
                 <div class="col-md-7">
@@ -105,7 +105,7 @@
         <% } %>
     </div>
     
-    <div class="col-4">
+    <div class="col-4 d-flex flex-column">
         <% if(currentUser) { %>
         <h2><b> Leave a review</b></h2>
         <form action="/stocks/<%=stock._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate>
@@ -143,9 +143,11 @@
                 <div class="card-body">
                     <h5 class="card-title">Rating: <%=review.rating%></h5>
                     <p class="card-text">Review: <%=review.body%></p>
+                    <% if(typeof(currentUser)!='undefined'&&review.author[0]==currentUser){ %>
                     <form action="/stocks/<%= stock._id %>/reviews/<%=review._id %>?_method=DELETE" method="POST">
                         <button class="btn btn-sm btn-danger">Delete</button>
                     </form>
+                    <% } %>
                 </div>
             </div>
         <% } %>
